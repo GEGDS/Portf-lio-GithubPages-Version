@@ -11,13 +11,13 @@
     const projects = [
         { 
             title: 'Simon Game', 
-            image:'../public/Images/Simon Game.png', 
+            image:'public/Images/Simon Game.png', 
             alt:'portfolio carousel', 
             description: 'Jogo de gravar a sequencia de cores' 
         },
         { 
             title: 'IMC Calculator', 
-            image:'../public/Images/IMC Calculator.png', 
+            image:'public/Images/IMC Calculator.png', 
             alt:'portfolio carousel', 
             description: 'calculadora de indice de massa corporal' 
         }
