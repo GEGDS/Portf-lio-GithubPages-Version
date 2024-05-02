@@ -304,6 +304,7 @@ h4 {
 /* Footer */
 footer {
     background-color: var(--cor2);
+    text-align: center;
     
 }
 
