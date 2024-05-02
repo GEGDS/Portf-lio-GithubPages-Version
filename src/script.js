@@ -7,60 +7,85 @@
  });
 
  /* Projetos */
- const projects = [
-    {
-        title: 'Simon Game',
-        image:'../public/Images/Simon Game.png',
-        alt:'portfolio carousel',
-        description: 'Jogo de gravar a sequencia de cores',
-    },
-    {
-        title: 'IMC Calculator',
-        image:'../public/Images/IMC Calculator.png',
-        alt:'portfolio carousel',
-        description: 'calculadora de indice de massa corporal'
-    },
-   
-];
+ document.addEventListener("DOMContentLoaded", function() {
+    const projects = [
+        { 
+            title: 'Simon Game', 
+            image:'../public/Images/Simon Game.png', 
+            alt:'portfolio carousel', 
+            description: 'Jogo de gravar a sequencia de cores' 
+        },
+        { 
+            title: 'IMC Calculator', 
+            image:'../public/Images/IMC Calculator.png', 
+            alt:'portfolio carousel', 
+            description: 'calculadora de indice de massa corporal' 
+        }
+    ];
 
-function populateProjects() {
     const carousel = document.querySelector('.carousel');
-    const description = document.querySelector('.description');
+    const descriptionContainer = document.querySelector('.description');
 
-    
-    carousel.innerHTML = '';
-    description.innerHTML = '';
-
-    
+    // Adiciona os slides
     projects.forEach((project, index) => {
         const slide = document.createElement('div');
         slide.classList.add('slide');
         if (index === 0) {
             slide.classList.add('active');
         }
-        const img = document.createElement('img');
-        img.src = project.image;
-        img.alt = project.alt;
-        slide.appendChild(img);
+        slide.innerHTML = `<img src="${project.image}" alt="${project.alt}">`;
         carousel.appendChild(slide);
-
-        const info = document.createElement('div');
-        info.classList.add('info');
-        if (index === 0) {
-            info.classList.add('active');
-        }
-        const title = document.createElement('h4');
-        title.textContent = project.title;
-        const desc = document.createElement('p');
-        desc.textContent = project.description;
-        info.appendChild(title);
-        info.appendChild(desc);
-        description.appendChild(info);
     });
-}
+
+    const slides = document.querySelectorAll('.slide');
+    let currentSlide = 0;
+
+    
+    document.getElementById('prevBtn').addEventListener('click', () => {
+        goToSlide(currentSlide - 1);
+    });
+
+    document.getElementById('nextBtn').addEventListener('click', () => {
+        goToSlide(currentSlide + 1);
+    });
+
+  
+    function goToSlide(n) {
+        slides[currentSlide].classList.remove('active');
+        currentSlide = (n + slides.length) % slides.length;
+        slides[currentSlide].classList.add('active');
+        updateDescription();
+    }
 
 
-window.addEventListener('load', populateProjects);
+    function updateDescription() {
+        const descriptions = document.querySelectorAll('.info');
+        descriptions.forEach((description, index) => {
+            if (index === currentSlide) {
+                description.style.display = 'block';
+            } else {
+                description.style.display = 'none';
+            }
+        });
+    }
+    
+
+    
+    projects.forEach((project, index) => {
+        const description = document.createElement('div');
+        description.classList.add('info');
+        if (index === 0) {
+            description.classList.add('active');
+        }
+        description.innerHTML = `<h4>${project.title}</h4><p>${project.description}</p>`;
+        descriptionContainer.appendChild(description);
+    });
+
+    updateDescription(); 
+});
+
+
+
 
 /* Footer */
 
